@@ -1,0 +1,56 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.8.13;
+
+import 'forge-std/Test.sol';
+
+import '../src/locknote.sol';
+
+
+contract LockNoteTest is Test {
+
+    LockNote note;
+
+    function setUp() public {
+        note = new LockNote();
+    }
+
+    function testMinting() public {
+        address beef = address(0xBEEF);
+        address fad = address(0xFAD);
+
+        vm.startPrank(beef);
+        note.mint(fad, 'hello fren.');
+
+        assertEq(note.balanceOf(fad), 1);
+        assertEq(note.readText(fad), 'hello fren.');
+        assertEq(note.readSender(fad), beef);
+
+    }
+
+    function testBurning() public {
+        address beef = address(0xBEEF);
+
+        vm.startPrank(beef);
+        note.mint(beef, 'writing to myself');
+
+        note.burn();
+        assertEq(note.balanceOf(beef), 0);
+
+    }
+
+    function testMetaData() public {
+        address beef = address(0xBEEF);
+        address fad = address(0xFAD);
+
+        vm.startPrank(beef);
+        note.mint(fad, 'hello fren.');
+
+        assertEq(note.tokenURI(note.getIdfromAddress(fad)),'data:application/json;base64,eyJuYW1lIjogIkxvY2sgTm90ZSIsICJkZXNjcmlwdGlvbiI6ICJMb2NrIE5vdGUgaXMgYW4gTkZUIGJhc2VkIG1lc3NhZ2luZyBhcHBsaWNhdGlvbi4gVXNlcnMgY2FuIG1pbnQgYSBtZXNzYWdlIHVwIHRvIDI4MCBjaGFyYWN0ZXJzIGxvbmcgdG8gYW55IGFkZHJlc3MsIHdoaWNoIGNhbiBvbmx5IGJlIGJ1cm5lZCBieSB0aGUgb3duZXIgb2YgdGhhdCBhZGRyZXNzLiBIYXZlIGZ1biB3aXRoIExvY2sgTm90ZSBob3dldmVyIHlvdSBsaWtlLiIsICJpbWFnZSI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBek5UQWdNakUxSWlCM2FXUjBhRDBpTXpVd0lpQm9aV2xuYUhROUlqSXhOU0lnYzNSNWJHVTlJbUpoWTJ0bmNtOTFibVE2SUdkaGFXNXpZbTl5YnpzZ1ltOTRMWE5vWVdSdmR6b2dNQ0F3SURBZ00zQjRJSEpuWW1Fb01UWTVMREUyT1N3eE5qa3NNU2tpSUQ0OGMzUjViR1VnUG1ScGRpQjdJR052Ykc5eU9pQnpkR1ZsYkdKc2RXVTdJR1p2Ym5RNklERTBjSGdnYzJGdWN5MXpaWEpwWmpzZ2FHVnBaMmgwT2lBeE1EQWxPeUJ2ZG1WeVpteHZkem9nWVhWMGJ5QjlQQzl6ZEhsc1pUNDhkR1Y0ZENCNFBTSXlOamtpSUhrOUlqSXdJaUJtYjI1MExXWmhiV2xzZVQwaWMyRnVjeTF6WlhKcFppSWdabTl1ZEMxemFYcGxQU0l4TW5CNElpQm1iMjUwTFhOMGVXeGxQU0pwZEdGc2FXTWlQa3h2WTJzZ1RtOTBaU0R3bjVTUFBDOTBaWGgwUGp4MFpYaDBJSGc5SWpFd0lpQjVQU0l6TlNJZ1ptOXVkQzFtWVcxcGJIazlJbk5oYm5NdGMyVnlhV1lpSUdadmJuUXRjMmw2WlQwaU1USndlQ0lnWm05dWRDMXpkSGxzWlQwaWFYUmhiR2xqSWo0d2VHSmxaV1k4TDNSbGVIUStQR1p2Y21WcFoyNVBZbXBsWTNRZ2VEMGlNVEFpSUhrOUlqUTFJaUIzYVdSMGFEMGlNek13SWlCb1pXbG5hSFE5SWpFMk1DSStQR1JwZGlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TVRrNU9TOTRhSFJ0YkNJK2FHVnNiRzhnWm5KbGJpNDhMMlJwZGo0OEwyWnZjbVZwWjI1UFltcGxZM1ErUEM5emRtYysifQ==');
+
+        //uncomment this to return message
+        //emit log_string(note.tokenURI(note.getIdfromAddress(fad)));
+
+    }
+
+
+}
