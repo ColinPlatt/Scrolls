@@ -87,6 +87,22 @@ library svg {
         return el('text', _props, _children);
     }
 
+    function tspan(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el('tspan', _props, _children);
+    }
+
+    function tspan(string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el('tspan', '', _children);
+    }
+
     function line(string memory _props)
         internal
         pure

@@ -1,4 +1,4 @@
-stringUtils/=lib/solidity-stringutils/src/
 forge-std/=lib/forge-std/src/
+solmate/=lib/solmate/src/
 ds-test/=lib/forge-std/lib/ds-test/src/
-
+stringUtils/=lib/solidity-stringutils/src/
