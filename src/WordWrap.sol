@@ -46,6 +46,10 @@ library WordWrap {
                 completedLines[j] = nextLine;
                 j++;
                 nextLine = words[i];
+                if (i == words.length - 1) {
+                    completedLines[j] = nextLine;
+                    break;
+                }
                 nextLineLength = 0;
             } else {
                 nextLine = string.concat(
@@ -93,15 +97,5 @@ library WordWrap {
         return el;
 
     }
-
-
-
-    /*
-
-    <tspan x={0} dy={index === 0 ? 0 : 14}>
-    {word}
-  </tspan>
-
-  */
 
 }
